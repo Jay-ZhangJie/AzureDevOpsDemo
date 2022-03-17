@@ -32,6 +32,6 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)\Publish'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'paf_HelloWorld'
     publishLocation: 'Container'
