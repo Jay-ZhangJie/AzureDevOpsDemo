@@ -35,3 +35,11 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'paf_HelloWorld'
     publishLocation: 'Container'
+
+- task: UiPathDeploy@2
+  inputs:
+    orchestratorConnection: 'TAM Demo - DEV'
+    packagesPath: '$(Build.ArtifactStagingDirectory)\Output'
+    folderName: 'Demo'
+    entryPoints: 'HelloWorld.xaml'
+    traceLevel: 'Information'
