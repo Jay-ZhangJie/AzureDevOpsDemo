@@ -10,18 +10,28 @@ pool:
   vmImage: windows-latest
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+# - script: echo Hello, world!
+#   displayName: 'Run a one-line script'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+# - script: |
+#     echo Add other tasks to build, test, and deploy your project.
+#     echo See https://aka.ms/yaml
+#   displayName: 'Run a multi-line script'
+
+- task: UiPathInstallPlatform@2
+  displayName: 'UiPath Install Platform CLI...'
+
 
 - task: UiPathPack@2
   inputs:
     versionType: 'CurrentVersion'
-    projectJsonPath: '$(Build.SourcesDirectory)\project.json'
-    orchestratorConnection: 'TAM Demo Connection'
+    projectJsonPath: '$(Build.SourcesDirectory)\HelloWorld\project.json'
+    orchestratorConnection: 'TAM Demo - DEV'
     outputPath: '$(Build.ArtifactStagingDirectory)\Output'
     traceLevel: 'Verbose'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)\Publish'
+    ArtifactName: 'paf_HelloWorld'
+    publishLocation: 'Container'
