@@ -24,7 +24,7 @@ steps:
 
 - task: UiPathPack@2
   inputs:
-    versionType: 'CurrentVersion'
+    versionType: 'AutoVersion'
     projectJsonPath: '$(Build.SourcesDirectory)\HelloWorld\project.json'
     orchestratorConnection: 'TAM Demo - DEV'
     outputPath: '$(Build.ArtifactStagingDirectory)\Output'
