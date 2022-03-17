@@ -1,10 +1,8 @@
 {
   "name": "HelloWorld",
   "description": "Blank Process",
-  "main": "Main.xaml",
+  "main": "HelloWorld.xaml",
   "dependencies": {
-    "UiPath.Excel.Activities": "[2.11.4]",
-    "UiPath.Mail.Activities": "[1.12.3]",
     "UiPath.System.Activities": "[21.10.4]",
     "UiPath.UIAutomation.Activities": "[21.10.5]"
   },
@@ -45,8 +43,8 @@
   "expressionLanguage": "VisualBasic",
   "entryPoints": [
     {
-      "filePath": "Main.xaml",
-      "uniqueId": "2208db70-0d0f-42f8-9a09-9ebf234fd69f",
+      "filePath": "HelloWorld.xaml",
+      "uniqueId": "c2ef7617-e8b6-4cf4-b413-9b389836feaf",
       "input": [],
       "output": []
     }
@@ -54,5 +52,5 @@
   "isTemplate": false,
   "templateProjectData": {},
   "publishData": {},
-  "targetFramework": "Windows"
+  "targetFramework": "Legacy"
 }
