@@ -21,6 +21,11 @@ steps:
 - task: UiPathInstallPlatform@2
   displayName: 'UiPath Install Platform CLI...'
 
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.SourcesDirectory)\HelloWorld\sampleAsset.csv'
+    artifact: 'af_asset'
+    publishLocation: 'pipeline'
 
 - task: UiPathPack@2
   inputs:
