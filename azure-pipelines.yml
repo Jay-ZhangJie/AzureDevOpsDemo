@@ -18,12 +18,14 @@ steps:
 
 
 - task: PublishPipelineArtifact@1
+  displayName: Publish asset csv file
   inputs:
     targetPath: '$(Build.SourcesDirectory)\HelloWorld\sampleAsset.csv'
     artifact: 'af_asset'
     publishLocation: 'pipeline'
 
 - task: UiPathPack@2
+  displayName: Pack sourcecode using project.json
   inputs:
     versionType: 'AutoVersion'
     projectJsonPath: '$(Build.SourcesDirectory)\HelloWorld\project.json'
