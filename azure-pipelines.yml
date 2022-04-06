@@ -16,6 +16,7 @@ steps:
 - task: UiPathInstallPlatform@2
   displayName: 'UiPath Install Platform CLI...'
 
+
 - task: PublishPipelineArtifact@1
   inputs:
     targetPath: '$(Build.SourcesDirectory)\HelloWorld\sampleAsset.csv'
@@ -30,6 +31,12 @@ steps:
     outputPath: '$(Build.ArtifactStagingDirectory)\Output'
     traceLevel: 'Verbose'
 
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'paf_HelloWorld'
+    publishLocation: 'Container'
+
 - task: UiPathDeploy@2
   inputs:
     orchestratorConnection: 'TAM Demo - DEV'
@@ -38,11 +45,6 @@ steps:
     entryPoints: 'HelloWorld.xaml'
     traceLevel: 'Information'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'paf_HelloWorld'
-    publishLocation: 'Container'
 
 - task: UiPathAssets@2
   inputs:
