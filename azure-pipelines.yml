@@ -49,6 +49,7 @@ steps:
 
 
 - task: UiPathAssets@2
+  displayName: Deploy assets into Development tenant
   inputs:
     orchestratorConnection: 'TAM Demo - DEV'
     folderName: 'Demo'
