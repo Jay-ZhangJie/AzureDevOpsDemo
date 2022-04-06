@@ -30,12 +30,6 @@ steps:
     outputPath: '$(Build.ArtifactStagingDirectory)\Output'
     traceLevel: 'Verbose'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'paf_HelloWorld'
-    publishLocation: 'Container'
-
 - task: UiPathDeploy@2
   inputs:
     orchestratorConnection: 'TAM Demo - DEV'
@@ -43,3 +37,19 @@ steps:
     folderName: 'Demo'
     entryPoints: 'HelloWorld.xaml'
     traceLevel: 'Information'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'paf_HelloWorld'
+    publishLocation: 'Container'
+
+- task: UiPathAssets@2
+  inputs:
+    orchestratorConnection: 'TAM Demo - DEV'
+    folderName: 'Demo'
+    assetActionType: 'Deploy'
+    csvFile: '$(Build.SourcesDirectory)\HelloWorld\sampleAsset.csv'
+
+
+
