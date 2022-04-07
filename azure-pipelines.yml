@@ -34,6 +34,7 @@ jobs:
         publishLocation: 'pipeline'
 
     - task: PublishBuildArtifacts@1
+      displayName: Publish nuget packae from previous build
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'af_HelloWorld'
@@ -43,6 +44,7 @@ jobs:
   dependsOn: PubishArtifacts
   steps:
     - task: UiPathDeploy@2
+      displayName: Deploy nuget package to Development
       inputs:
         orchestratorConnection: 'TAM Demo - DEV'
         packagesPath: '$(Build.ArtifactStagingDirectory)\Output'
@@ -51,7 +53,7 @@ jobs:
         traceLevel: 'Information'
 
     - task: UiPathAssets@2
-      displayName: Deploy assets into Development tenant
+      displayName: Deploy assets to Development
       inputs:
         orchestratorConnection: 'TAM Demo - DEV'
         folderName: 'Demo'
