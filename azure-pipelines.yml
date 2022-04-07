@@ -11,7 +11,7 @@ pool:
 
 
 jobs:
-- job: BuildPackages
+- job: BuildAndDeployPackage
   steps:
     - task: UiPathPack@2
       displayName: Run Workflow Analysis and Pack Sourcecode
@@ -19,7 +19,7 @@ jobs:
         versionType: 'AutoVersion'
         projectJsonPath: '$(Build.SourcesDirectory)\HelloWorld' # can add \project.json here
         orchestratorConnection: 'TAM Demo - DEV'
-        outputPath: '$(Build.ArtifactStagingDirectory)\Output'
+        outputPath: '$(Build.ArtifactStagingDirectory)'
         outputType: 'None'
         runWorkflowAnalysis: true
         traceLevel: 'Information'
@@ -28,10 +28,19 @@ jobs:
       inputs:
         targetPath: '$(Build.ArtifactStagingDirectory)'
         artifact: 'af_HelloWorld'
-        publishLocation: 'pipeline'      
+        publishLocation: 'pipeline'     
+
+    - task: UiPathDeploy@2
+      displayName: Deploy nuget package to Development
+      inputs:
+        orchestratorConnection: 'TAM Demo - DEV'
+        packagesPath: '$(Build.ArtifactStagingDirectory)'
+        folderName: 'Demo'
+        entryPoints: 'HelloWorld.xaml'
+        traceLevel: 'Information' 
   
-- job: PubishArtifacts
-  dependsOn: BuildPackages
+- job: PubishAndDeployAsset
+  #dependsOn: BuildPackages
   steps:
     - task: PublishPipelineArtifact@1
       displayName: Publish asset csv file
@@ -39,20 +48,6 @@ jobs:
         targetPath: '$(Build.SourcesDirectory)\HelloWorld\Config\sampleAsset.csv'
         artifact: 'af_asset' 
         publishLocation: 'pipeline'
-
-
-- job: DeployToDevelopment
-  dependsOn: PubishArtifacts
-  steps:
-    - task: UiPathDeploy@2
-      displayName: Deploy nuget package to Development
-      inputs:
-        orchestratorConnection: 'TAM Demo - DEV'
-        packagesPath: '$(Build.ArtifactStagingDirectory)\Output'
-        folderName: 'Demo'
-        entryPoints: 'HelloWorld.xaml'
-        traceLevel: 'Information'
-
     - task: UiPathAssets@2
       displayName: Deploy assets to Development
       inputs:
@@ -60,6 +55,11 @@ jobs:
         folderName: 'Demo'
         assetActionType: 'Deploy'
         csvFile: '$(Build.SourcesDirectory)\HelloWorld\Config\sampleAsset.csv'
+
+
+
+
+
 
 
 
