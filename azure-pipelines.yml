@@ -36,7 +36,7 @@ jobs:
     - task: PublishBuildArtifacts@1
       displayName: Publish nuget packae from previous build
       inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)\Output'
         ArtifactName: 'af_HelloWorld'
         publishLocation: 'Container'
 
@@ -58,7 +58,7 @@ jobs:
         orchestratorConnection: 'TAM Demo - DEV'
         folderName: 'Demo'
         assetActionType: 'Deploy'
-        csvFile: '$(Build.SourcesDirectory)\HelloWorld\sampleAsset.csv'
+        csvFile: '$(Build.SourcesDirectory)\HelloWorld\Config\sampleAsset.csv'
 
 
 
