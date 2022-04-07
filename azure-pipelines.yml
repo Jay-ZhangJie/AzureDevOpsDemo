@@ -36,7 +36,7 @@ jobs:
     - task: PublishBuildArtifacts@1
       displayName: Publish nuget packae from previous build
       inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)\Output'
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'af_HelloWorld'
         publishLocation: 'Container'
 
