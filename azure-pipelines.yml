@@ -9,52 +9,57 @@ trigger:
 pool:
   vmImage: windows-latest
 
-steps:
-# - script: echo Hello, world!
-#   displayName: 'Run a one-line script'
 
-- task: UiPathInstallPlatform@2
-  displayName: 'UiPath Install Platform CLI...'
+jobs:
+- job: BuildPackages
+  steps:
+    - task: UiPathPack@2
+      displayName: Pack sourcecode using project.json
+      inputs:
+        versionType: 'AutoVersion'
+        projectJsonPath: '$(Build.SourcesDirectory)\HelloWorld\project.json'
+        orchestratorConnection: 'TAM Demo - DEV'
+        outputPath: '$(Build.ArtifactStagingDirectory)\Output'
+        runWorkflowAnalysis: true
+        traceLevel: 'Verbose'
+  
+- job: PubishArtifacts
+  steps:
+    - task: PublishPipelineArtifact@1
+      displayName: Publish asset csv file
+      inputs:
+        targetPath: '$(Build.SourcesDirectory)\HelloWorld\sampleAsset.csv'
+        artifact: 'af_asset' 
+        publishLocation: 'pipeline'
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'af_HelloWorld'
+        publishLocation: 'Container'
+
+- job: DeployToDevelopment
+  steps:
+    - task: UiPathDeploy@2
+      inputs:
+        orchestratorConnection: 'TAM Demo - DEV'
+        packagesPath: '$(Build.ArtifactStagingDirectory)\Output'
+        folderName: 'Demo'
+        entryPoints: 'HelloWorld.xaml'
+        traceLevel: 'Information'
+
+    - task: UiPathAssets@2
+      displayName: Deploy assets into Development tenant
+      inputs:
+        orchestratorConnection: 'TAM Demo - DEV'
+        folderName: 'Demo'
+        assetActionType: 'Deploy'
+        csvFile: '$(Build.SourcesDirectory)\HelloWorld\sampleAsset.csv'
 
 
-- task: PublishPipelineArtifact@1
-  displayName: Publish asset csv file
-  inputs:
-    targetPath: '$(Build.SourcesDirectory)\HelloWorld\sampleAsset.csv'
-    artifact: 'af_asset'
-    publishLocation: 'pipeline'
-
-- task: UiPathPack@2
-  displayName: Pack sourcecode using project.json
-  inputs:
-    versionType: 'AutoVersion'
-    projectJsonPath: '$(Build.SourcesDirectory)\HelloWorld\project.json'
-    orchestratorConnection: 'TAM Demo - DEV'
-    outputPath: '$(Build.ArtifactStagingDirectory)\Output'
-    traceLevel: 'Verbose'
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'paf_HelloWorld'
-    publishLocation: 'Container'
-
-- task: UiPathDeploy@2
-  inputs:
-    orchestratorConnection: 'TAM Demo - DEV'
-    packagesPath: '$(Build.ArtifactStagingDirectory)\Output'
-    folderName: 'Demo'
-    entryPoints: 'HelloWorld.xaml'
-    traceLevel: 'Information'
 
 
-- task: UiPathAssets@2
-  displayName: Deploy assets into Development tenant
-  inputs:
-    orchestratorConnection: 'TAM Demo - DEV'
-    folderName: 'Demo'
-    assetActionType: 'Deploy'
-    csvFile: '$(Build.SourcesDirectory)\HelloWorld\sampleAsset.csv'
+
 
 
 
