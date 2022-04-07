@@ -24,6 +24,7 @@ jobs:
         traceLevel: 'Verbose'
   
 - job: PubishArtifacts
+  dependsOn: BuildPackages
   steps:
     - task: PublishPipelineArtifact@1
       displayName: Publish asset csv file
@@ -39,6 +40,7 @@ jobs:
         publishLocation: 'Container'
 
 - job: DeployToDevelopment
+  dependsOn: PubishArtifacts
   steps:
     - task: UiPathDeploy@2
       inputs:
