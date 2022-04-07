@@ -23,17 +23,16 @@ jobs:
         outputType: 'None'
         runWorkflowAnalysis: true
         traceLevel: 'Information'
-  
-- job: PubishArtifacts
-  dependsOn: BuildPackages
-  steps:
     - task: PublishPipelineArtifact@1
       displayName: Publish nuget pack from previous build
       inputs:
         targetPath: '$(Build.ArtifactStagingDirectory)'
         artifact: 'af_HelloWorld'
-        publishLocation: 'pipeline'
-
+        publishLocation: 'pipeline'      
+  
+- job: PubishArtifacts
+  dependsOn: BuildPackages
+  steps:
     - task: PublishPipelineArtifact@1
       displayName: Publish asset csv file
       inputs:
