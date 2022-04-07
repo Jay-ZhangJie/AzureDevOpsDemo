@@ -14,30 +14,33 @@ jobs:
 - job: BuildPackages
   steps:
     - task: UiPathPack@2
-      displayName: Run Workflow Analysis and Pack sourcecode
+      displayName: Run Workflow Analysis and Pack Sourcecode
       inputs:
         versionType: 'AutoVersion'
-        projectJsonPath: '$(Build.SourcesDirectory)\HelloWorld\project.json'
+        projectJsonPath: '$(Build.SourcesDirectory)\HelloWorld' # can add \project.json here
         orchestratorConnection: 'TAM Demo - DEV'
         outputPath: '$(Build.ArtifactStagingDirectory)\Output'
+        outputType: 'None'
         runWorkflowAnalysis: true
-        traceLevel: 'Verbose'
+        traceLevel: 'Information'
   
 - job: PubishArtifacts
   dependsOn: BuildPackages
   steps:
+    - task: PublishPipelineArtifact@1
+      displayName: Publish nuget pack from previous build
+      inputs:
+        targetPath: '$(Build.ArtifactStagingDirectory)'
+        artifact: 'af_HelloWorld'
+        publishLocation: 'pipeline'
+
     - task: PublishPipelineArtifact@1
       displayName: Publish asset csv file
       inputs:
         targetPath: '$(Build.SourcesDirectory)\HelloWorld\Config\sampleAsset.csv'
         artifact: 'af_asset' 
         publishLocation: 'pipeline'
-    - task: PublishPipelineArtifact@1
-      displayName: Publish nuget packae from previous build
-      inputs:
-        targetPath: '$(Build.ArtifactStagingDirectory)'
-        artifact: 'af_HelloWorld'
-        publishLocation: 'pipeline'
+
 
 - job: DeployToDevelopment
   dependsOn: PubishArtifacts
