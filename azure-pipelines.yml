@@ -32,13 +32,12 @@ jobs:
         targetPath: '$(Build.SourcesDirectory)\HelloWorld\Config\sampleAsset.csv'
         artifact: 'af_asset' 
         publishLocation: 'pipeline'
-
-    - task: PublishBuildArtifacts@1
+    - task: PublishPipelineArtifact@1
       displayName: Publish nuget packae from previous build
       inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'af_HelloWorld'
-        publishLocation: 'Container'
+        targetPath: '$(Build.ArtifactStagingDirectory)'
+        artifact: 'af_HelloWorld'
+        publishLocation: 'pipeline'
 
 - job: DeployToDevelopment
   dependsOn: PubishArtifacts
