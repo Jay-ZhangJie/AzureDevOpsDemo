@@ -29,7 +29,7 @@ jobs:
     - task: PublishPipelineArtifact@1
       displayName: Publish asset csv file
       inputs:
-        targetPath: '$(Build.SourcesDirectory)\HelloWorld\sampleAsset.csv'
+        targetPath: '$(Build.SourcesDirectory)\HelloWorld\Config\sampleAsset.csv'
         artifact: 'af_asset' 
         publishLocation: 'pipeline'
 
