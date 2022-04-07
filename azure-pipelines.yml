@@ -14,7 +14,7 @@ jobs:
 - job: BuildPackages
   steps:
     - task: UiPathPack@2
-      displayName: Pack sourcecode using project.json
+      displayName: Run Workflow Analysis and Pack sourcecode
       inputs:
         versionType: 'AutoVersion'
         projectJsonPath: '$(Build.SourcesDirectory)\HelloWorld\project.json'
