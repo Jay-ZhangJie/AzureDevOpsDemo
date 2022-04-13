@@ -30,14 +30,14 @@ jobs:
         artifact: 'af_HelloWorld'
         publishLocation: 'pipeline'     
 
-    - task: UiPathDeploy@2
-      displayName: Deploy nuget package to Development
-      inputs:
-        orchestratorConnection: 'TAM Demo - DEV'
-        packagesPath: '$(Build.ArtifactStagingDirectory)'
-        folderName: 'Demo'
-        entryPoints: 'HelloWorld.xaml'
-        traceLevel: 'Information' 
+    # - task: UiPathDeploy@2
+    #   displayName: Deploy nuget package to Development
+    #   inputs:
+    #     orchestratorConnection: 'TAM Demo - DEV'
+    #     packagesPath: '$(Build.ArtifactStagingDirectory)'
+    #     folderName: 'Demo'
+    #     entryPoints: 'HelloWorld.xaml'
+    #     traceLevel: 'Information' 
   
 - job: PubishAndDeployAsset
   #dependsOn: BuildPackages
@@ -48,13 +48,13 @@ jobs:
         targetPath: '$(Build.SourcesDirectory)\HelloWorld\Config\sampleAsset.csv'
         artifact: 'af_asset' 
         publishLocation: 'pipeline'
-    - task: UiPathAssets@2
-      displayName: Deploy assets to Development
-      inputs:
-        orchestratorConnection: 'TAM Demo - DEV'
-        folderName: 'Demo'
-        assetActionType: 'Deploy'
-        csvFile: '$(Build.SourcesDirectory)\HelloWorld\Config\sampleAsset.csv'
+    # - task: UiPathAssets@2
+    #   displayName: Deploy assets to Development
+    #   inputs:
+    #     orchestratorConnection: 'TAM Demo - DEV'
+    #     folderName: 'Demo'
+    #     assetActionType: 'Deploy'
+    #     csvFile: '$(Build.SourcesDirectory)\HelloWorld\Config\sampleAsset.csv'
 
 
 
