@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-16"?>
+<TargetApp Area="-9, -9, 1938, 1048" BrowserType="Edge" ContentHash="ri9_1IyeE0Ghl8Rg1_dpcw" Selector="&lt;html app='msedge.exe' title='Us Latest News and Headlines | Yahoo News - Latest News &amp;amp; Headlines'/&gt;" Url="[&quot;https://news.yahoo.com/&quot;+yahooEnvVar]" xmlns="http://schemas.uipath.com/workflow/activities/uix">
+  <imageRef attrName="IconBase64" xmlns="">0P9alqV2eCkKT_jyK71r-AQ</imageRef>
+  <imageRef attrName="InformativeScreenshot" originalValue="90dfe55ad5a8337e44ec1fc3b25f17ce.png" xmlns="">0pTX6hlLawU2-aXntmtKVDQ</imageRef>
+</TargetApp>

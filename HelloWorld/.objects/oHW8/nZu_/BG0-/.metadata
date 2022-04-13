@@ -1,0 +1,15 @@
+﻿{
+  "Id": "BG0-mDcgb0iPXuyZKtmfAw",
+  "Reference": "bMIjS2OVKEeoWy6-7sTHCw/BG0-mDcgb0iPXuyZKtmfAw",
+  "ParentRef": "bMIjS2OVKEeoWy6-7sTHCw/nZu_VbCUsUiws5PRORH3JQ",
+  "Name": "Edge ACME System 1 - Log In",
+  "Description": "dynamic selector",
+  "Type": "Screen",
+  "TaxonomyType": "Screen",
+  "Created": "2022-04-08T13:46:35.1991499Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=21.10.5.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=21.10.0.0, Culture=neutral, PublicKeyToken=null"
+  ],
+  "Updated": "2022-04-08T13:46:35.1991499Z"
+}
